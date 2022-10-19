@@ -58,12 +58,12 @@ class _SudokuState extends State<Sudoku> {
   }
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          ElevatedButton(onPressed: () =>  generatePuzzle(), child: Icon(Icons.refresh)),
-        ],
-      )
-      ,
+      // appBar: AppBar(
+      //   actions: [
+      //     ElevatedButton(onPressed: () =>  generatePuzzle(), child: Icon(Icons.refresh)),
+      //   ],
+      // )
+      // ,
      body: SafeArea(
        child: Container(
          alignment: Alignment.center,
@@ -77,28 +77,32 @@ class _SudokuState extends State<Sudoku> {
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(5),
                 child: GridView.builder
-                  (itemCount: boxInners.length ,
+                  (itemCount: 9 ,
                   shrinkWrap: true
                   ,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3 ,
           childAspectRatio: 1,
           crossAxisSpacing: 5,
-          mainAxisSpacing: 5),physics: ScrollPhysics(),
+          mainAxisSpacing: 5)
+                  ,
+                  // physics: ScrollPhysics(),
 
                    itemBuilder: (buildContext , index) {
-                     BoxInner boxInner = boxInners[index];
+                     BoxInner boxInner = boxInners[index]  ;
 
                   return Container(alignment:  Alignment.center,
                   child: GridView.builder
                     (
-                    itemCount: boxInner.blokChars.length ,
+                    itemCount: boxInner.blokChars.length  ,
                     shrinkWrap: true
                     ,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3 ,
                         childAspectRatio: 1,
                         crossAxisSpacing: 5,
-                        mainAxisSpacing: 5),physics: ScrollPhysics(),
+                        mainAxisSpacing: 5)
+                    ,
+                    // physics: ScrollPhysics(),
 
                     itemBuilder: (buildContext , index) {
 
@@ -122,42 +126,44 @@ class _SudokuState extends State<Sudoku> {
 
                 ),
               ),
-             Expanded(
-               child:Container(
-                 padding: EdgeInsets.all(20),
-                 alignment: Alignment.center,
-                 child : Row(
-                   children: [
-                     GridView.builder
-                       (itemCount:9 ,
-                       shrinkWrap: true , scrollDirection: Axis.horizontal
-                       ,
-                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3 ,
-                           childAspectRatio: 1,
-                           crossAxisSpacing:50,
-                           mainAxisSpacing: 5),physics: ScrollPhysics(),
+             // Expanded(
+             //   child:Container(
+             //     padding: EdgeInsets.all(20),
+             //     alignment: Alignment.center,
+             //     child : Row(
+             //       children: [
+             //         GridView.builder
+             //           (itemCount:9 ,
+             //           shrinkWrap: true , scrollDirection: Axis.horizontal
+             //           ,
+             //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3 ,
+             //               childAspectRatio: 1,
+             //               crossAxisSpacing:50,
+             //               mainAxisSpacing: 5),physics: ScrollPhysics(),
+             //
+             //           itemBuilder: (buildContext , index) {
+             //             return ElevatedButton(onPressed: (){},
+             //               child: Text("Refresh"),
+             //             );
+             //           },
+             //
+             //         ),
+                     Expanded(
+                     child:
 
-                       itemBuilder: (buildContext , index) {
-                         return ElevatedButton(onPressed: (){},
-                           child: Text("Refresh"),
-                         );
-                       },
-
-                     ),
-
-                     Expanded(child:
-                     ElevatedButton(onPressed: (){},
+                     ElevatedButton(onPressed: () =>  generateSudoku(),
                      child: Text("Refresh"),
+
                      ),
                      )
                        // ),
                      // )
                    //-----------
-                   ],
-                 ),
-               ),
-              ),
-            //  -----
+            //        ],
+            //      ),
+            //    ),
+            //   ),
+            // //  -----
             ],
           ),
         ),
@@ -166,7 +172,7 @@ class _SudokuState extends State<Sudoku> {
   }
 
   generatePuzzle() {
-    boxInners.clear();
+    // boxInners.clear();
     var sudokuGenerator = SudokuGenerator(emptySquares: 54);
     List<List<List<int>>> completes = partition(sudokuGenerator.newSudokuSolved,
         sqrt(sudokuGenerator.newSudoku.length).toInt()).toList();
