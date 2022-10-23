@@ -99,16 +99,24 @@ class _SudokuState extends State<Sudoku> {
                         itemBuilder: (buildContext, index) {
                           BlokChar blokChar = boxInner.blokChars[index];
 
-                          return Container(
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.all(5),
+                          return Container(decoration: const BoxDecoration(
+                            border: Border(
+                              top: BorderSide(color: Color(0xFFDFDFDF)),
+                              left: BorderSide(color: Color(0xFFDFDFDF)),
+                              right: BorderSide(color: Color(0xFF7F7F7F)),
+                              bottom: BorderSide(color: Color(0xFF7F7F7F)),
+                            ),
+                            color: Color(0xFFBFBFBF),
+                          ),
+                            child: Center(
+                              child: TextField(
 
-                            child: TextField(
 
+                                decoration: InputDecoration(
 
-                              decoration: InputDecoration(
-                                labelText: "${blokChar.text}",
+                                  labelText: "${blokChar.text}",
 
+                                ),
                               ),
                             ),
                           );
@@ -120,26 +128,26 @@ class _SudokuState extends State<Sudoku> {
               ),
               Expanded(
                 child: Container(
-                  margin: EdgeInsets.all(20),
-                  padding: EdgeInsets.all(50),
+                  margin: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(150),
                   child: ElevatedButton(
                     onPressed: () => generateSudoku(),
                     child: Text("Update"),
                   ),
                 ),
               ),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.all(20),
-                  padding: EdgeInsets.all(50),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      checkFinish();
-                    },
-                    child: Text("check"),
-                  ),
-                ),
-              ),
+              // Expanded(
+              //   child: Container(
+              //     margin: EdgeInsets.all(20),
+              //     padding: EdgeInsets.all(50),
+              //     child: ElevatedButton(
+              //       onPressed: () {
+              //         checkFinish();
+              //       },
+              //       child: Text("check"),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -188,7 +196,6 @@ class _SudokuState extends State<Sudoku> {
     );
   }
   //------------------------------------------------------
-
   void checkFinish() {
     int totalUnfinsh = boxInners
         .map((e) => e.blokChars)
@@ -197,6 +204,7 @@ class _SudokuState extends State<Sudoku> {
         .length;
     isFinish = totalUnfinsh == 0;
   }
+
 }
 
 //-------------------------------------------------
